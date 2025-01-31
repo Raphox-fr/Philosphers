@@ -6,12 +6,11 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:28:46 by rafaria           #+#    #+#             */
-/*   Updated: 2025/01/30 13:19:10 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/01/31 18:52:53 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
-
 
 long ft_atol(char *str)
 {
@@ -40,23 +39,77 @@ long ft_atol(char *str)
 	return (nbr);
 }
 
-
-
-
 int init_struct(t_table *table, int argc, char **argv)
 {
 	int i;
 	i = 0;
 
 	table->nbr_philo = ft_atol(argv[1]);
-	table->time_to_die = ft_atol(argv[2]);
-	table->time_to_eat = ft_atol(argv[3]);
-	table->time_to_sleep = ft_atol(argv[4]);
+	table->time_to_die = ft_atol(argv[2]) * 1000;
+	table->time_to_eat = ft_atol(argv[3]) * 1000;
+	table->time_to_sleep = ft_atol(argv[4]) * 1000;
 	if (argv[5] != NULL)
 		table->nbr_limit_meals = ft_atol(argv[5]);
 	else
-		table->nbr_limit_meals = -1;		
+		table->nbr_limit_meals = -1;
+	if ((table->time_to_die < 6000)
+		|| (table->time_to_eat < 6000)
+		|| (table->time_to_sleep < 6000))
+		{
+			return (0); // ERROR
+		}
+	table->end_simulation = false;
+	table->philos = malloc(sizeof(t_philo) * table->nbr_philo);
+	if (table->philos)
+		return (0); // ERROR	
+	return (0);	
+}
 
-	return (0);
+void assign_forks(t_philo *philo, int philo_position)
+{
+	int i;
+	i = 0;
+
+
+	t_mtx fork;
+	int nbr_philo;
+
+	nbr_philo = philo->table->nbr_philo;
+
+	philo->left_fork = fork;
+	philo->left_fork_id = ((philo_position + 1) % nbr_philo);
+	philo->right_fork = fork;
+	philo->right_fork_id = (philo_position);
+
+	if (philo->id % 2 == 0) // pair
+	{
+		philo->left_fork = fork;
+		philo->left_fork_id = (philo_position);
+		philo->right_fork = fork;
+		philo->right_fork_id = ((philo_position + 1) % nbr_philo);
+	}
 	
+	
+}
+int	init_philos(t_table *table)
+{
+	int i;
+	i = 0;
+
+	while (i < table->nbr_philo)
+	{
+		table->philos[i].id = i;
+		table->philos[i].full = false;
+		table->philos[i].meal_counter = 0;
+		table->philos[i].table = table;
+		assign_forks(&table->philos[i], i);
+		i++;
+	}
+
+
+
+
+
+	
+	return (0);
 }
