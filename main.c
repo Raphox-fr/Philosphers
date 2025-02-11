@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:50:02 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/11 11:49:55 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/11 15:01:45 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int main(int argc, char **argv)
 	t_table table;
 
 	i = 0;
-
-	set_timer();
-	return (0);
 
 	
 	if (check_arguments(argc, argv) == -1)

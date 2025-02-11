@@ -7,6 +7,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <limits.h>
+ #include <unistd.h>
 
 typedef pthread_mutex_t t_mtx;
 typedef struct s_philo t_philo;
@@ -24,14 +25,11 @@ typedef struct s_table
 	long end_simulation; //Philo died or nbr_limit_meals surpassed
 	int one_philo_dead;
 	long start_dinner_time;
-	
 
 
 	t_philo *philos;
-	t_mtx *thread_dead;
-	t_mtx *thread_start_dinner_time;
-
-
+	pthread_mutex_t *thread_dead;
+	pthread_mutex_t *thread_start_dinner_time;
 
 }		t_table;
 
@@ -39,15 +37,15 @@ typedef struct s_philo
 {
 	int id;
 	int full;
-	long time_last_meal;
-	long meal_counter;
-	pthread_t thread_id;
-
-	t_mtx left_fork;
 	int  left_fork_id;
-
-	t_mtx right_fork;
+	long meal_counter;
 	int  right_fork_id;
+	long time_last_meal;
+	
+	pthread_t    thread_id;
+	pthread_mutex_t *thread_left_fork;
+	pthread_mutex_t *thread_right_fork;
+	pthread_mutex_t *thread_lock_meal;
 	t_table *table;
 
 
@@ -71,7 +69,11 @@ int contains_a_digit(char *str);
 int check_arguments(int argc, char **argv);
 
 
+// INIT . C
+void assign_forks(t_philo *philo, int philo_position);
+
 // TIME.C : 
 int set_timer();
+void my_printf(t_philo *philo, char *str);
 
 #endif
