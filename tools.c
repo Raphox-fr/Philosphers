@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:28:46 by rafaria           #+#    #+#             */
-/*   Updated: 2025/01/31 18:52:53 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:14:28 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void assign_forks(t_philo *philo, int philo_position)
 		philo->right_fork = fork;
 		philo->right_fork_id = ((philo_position + 1) % nbr_philo);
 	}
-	
-	
 }
 int	init_philos(t_table *table)
 {
@@ -105,11 +103,8 @@ int	init_philos(t_table *table)
 		assign_forks(&table->philos[i], i);
 		i++;
 	}
-
-
-
-
-
-	
 	return (0);
 }
+
+
+

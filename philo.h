@@ -14,9 +14,6 @@ typedef struct s_table t_table;
 
 
 
-
-
-
 typedef struct s_table
 {
 	long nbr_philo;
@@ -35,6 +32,7 @@ typedef struct s_philo
 	int id;
 	long meal_counter;
 	int full;
+	pthread_t thread_id;
 
 	t_mtx left_fork;
 	int  left_fork_id;
@@ -55,7 +53,9 @@ int init_struct(t_table *table, int argc, char **argv);
 int	init_philos(t_table *table);
 long ft_atol(char *str);
 
-
+// Table-start 
+void dinner_start(t_table *table);
+void *dinner_simulation(void *data);
 
 // Check_args :
 int contains_a_digit(char *str);

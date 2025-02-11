@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:50:02 by rafaria           #+#    #+#             */
-/*   Updated: 2025/01/30 13:15:32 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:15:50 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 		return (0);
 
 	init_struct(&table, argc, argv);
+	dinner_start(&table);
 	return (0);
 }
 
