@@ -1,42 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 17:50:02 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/11 11:49:55 by rafaria          ###   ########.fr       */
+/*   Created: 2025/02/11 11:49:44 by rafaria           #+#    #+#             */
+/*   Updated: 2025/02/11 11:49:58 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 
-
-
-
-
-
-int main(int argc, char **argv)
+int set_timer()
 {
-	int i;
-	t_table table;
-
-	i = 0;
-
-	set_timer();
-	return (0);
-
-	
-	if (check_arguments(argc, argv) == -1)
-		return (0);
-
-	init_struct(&table, argc, argv);
-	dinner_start(&table);
-	return (0);
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	printf("%ld\n", time.tv_sec * 1000 + time.tv_usec / 1000);
+	return(time.tv_sec * 1000 + time.tv_usec / 1000);
 }
-
-
-
-
-	// printf("%ld", ft_atol(argv[1]));

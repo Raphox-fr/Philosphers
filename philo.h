@@ -21,17 +21,26 @@ typedef struct s_table
 	long time_to_sleep;
 	long time_to_die;
 	long nbr_limit_meals;
-	t_philo *philos;
-	long start_simulation;
 	long end_simulation; //Philo died or nbr_limit_meals surpassed
+	int one_philo_dead;
+	long start_dinner_time;
+	
+
+
+	t_philo *philos;
+	t_mtx *thread_dead;
+	t_mtx *thread_start_dinner_time;
+
+
 
 }		t_table;
 
 typedef struct s_philo
 {
 	int id;
-	long meal_counter;
 	int full;
+	long time_last_meal;
+	long meal_counter;
 	pthread_t thread_id;
 
 	t_mtx left_fork;
@@ -47,20 +56,22 @@ typedef struct s_philo
 
 // FUNCTIONS :
 
-// Main.c
+// MAIN.C
 
 int init_struct(t_table *table, int argc, char **argv);
 int	init_philos(t_table *table);
 long ft_atol(char *str);
 
-// Table-start 
+// DINNER_START.C
 void dinner_start(t_table *table);
 void *dinner_simulation(void *data);
 
-// Check_args :
+// CHECK_ARGS.C
 int contains_a_digit(char *str);
 int check_arguments(int argc, char **argv);
 
 
+// TIME.C : 
+int set_timer();
 
 #endif
