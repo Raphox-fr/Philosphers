@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/12 13:13:10 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/12 18:13:31 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int is_philo_dead(t_philo *philo)
 	// pthread_mutex_lock(philo->table->thread_dead);
 	// philo->table->one_philo_dead = 1;
 	// pthread_mutex_lock(philo->table->thread_dead);
+
 	return (1);
-		
 }
 
 int go_eat(t_philo *philo)
@@ -30,8 +30,11 @@ int go_eat(t_philo *philo)
 	philo->meal_counter = philo->meal_counter + 1;
 	if ((philo->table->nbr_limit_meals != -1) && (philo->meal_counter > philo->table->nbr_limit_meals))
 			return(write(2, "MAX MEAL DEPASSER", 17), 0);
+	pthread_mutex_lock(philo->table->thread_printf);
 	my_printf(philo, "is eating");
-	usleep(1000000);
+	pthread_mutex_unlock(philo->table->thread_printf);
+
+	usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->thread_lock_meal);
 	return (1);
 }
@@ -39,10 +42,14 @@ int go_eat(t_philo *philo)
 int go_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(philo->thread_lock_meal);
-	// if (set_timer() - philo->time_last_meal > philo->table->time_to_die)
-	// 		return(write(2, "TOO MUCH TIME", 13), 0);			
+	usleep(philo->table->time_to_sleep);
+
+	if (((set_timer() - philo->time_last_meal) * 1000) > philo->table->time_to_die)
+		return(write(2, "TOO MUCH TIME\n", 14), 0);
+	pthread_mutex_lock(philo->table->thread_printf);			
 	my_printf(philo, "is sleeping");
-	usleep(1000000);
+	pthread_mutex_unlock(philo->table->thread_printf);
+
 	pthread_mutex_unlock(philo->thread_lock_meal);
 	return (1);
 }
@@ -50,15 +57,18 @@ int go_sleep(t_philo *philo)
 int go_think(t_philo *philo)
 {
 	pthread_mutex_lock(philo->thread_lock_meal);
-	// if (set_timer() - philo->time_last_meal > philo->table->time_to_die)
-	// 		return(write(2, "TOO MUCH TIME", 13), 0);
+	// printf("time_last_meal PRECIS : %ld\n", ((set_timer() - philo->time_last_meal) * 1000));
+	// printf("time to die PRECIS : %ld\n", philo->table->time_to_die);
+
+		if (((set_timer() - philo->time_last_meal) * 1000) > philo->table->time_to_die)
+			return(write(2, "TOO MUCH TIME\n", 14), 0);
+
+	pthread_mutex_lock(philo->table->thread_printf);
 	my_printf(philo, "is thinking");
-	usleep(1000000);
+	pthread_mutex_unlock(philo->table->thread_printf);
 	pthread_mutex_unlock(philo->thread_lock_meal);
 	return (1);
 }
-
-
 
 
 void *dinner_simulation(void *data)
@@ -68,6 +78,7 @@ void *dinner_simulation(void *data)
 
 	int i;
 	i = 0;
+	
 	while (is_philo_dead(philo) == 1)
 	{
 		if (go_eat(philo) == 0)
@@ -91,6 +102,8 @@ void dinner_start(t_table *table)
 		return ;
 	else
 	{
+		table->start_dinner_time = set_timer();
+		
 		while (i < table->nbr_philo)
 		{
 			pthread_create(&table->philos[i].thread_id, NULL, dinner_simulation, &table->philos[i]);
@@ -99,7 +112,18 @@ void dinner_start(t_table *table)
 		i = 0;
 		while (i < table->nbr_philo)
 		{
-			pthread_join(table->philos[i].thread_id, NULL);
+			if (pthread_join(table->philos[i].thread_id, NULL) == 0)
+			{
+				int i;
+				i = 0;
+				while (i < table->nbr_philo)
+				{
+					pthread_detach(table->philos[i].thread_id);
+					i++;
+				}
+				
+				exit(5);
+			}
 			i++;
 		}
 
