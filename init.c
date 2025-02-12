@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/11 17:16:25 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/12 12:29:16 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int init_table_mutex(t_table *table)
 int init_philo_mutex(t_philo *philo)
 {
 	
-	philo->thread_left_fork = malloc(1 * sizeof(pthread_mutex_t));
-	philo->thread_right_fork = malloc(1 * sizeof(pthread_mutex_t));
-	philo->thread_lock_meal = malloc(1 * sizeof(pthread_mutex_t));
+	philo->thread_left_fork = malloc(sizeof(pthread_mutex_t));
+	philo->thread_right_fork = malloc(sizeof(pthread_mutex_t));
+	philo->thread_lock_meal = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(philo->thread_left_fork, NULL);
 	pthread_mutex_init(philo->thread_right_fork, NULL);
 	pthread_mutex_init(philo->thread_lock_meal, NULL);
@@ -60,8 +60,6 @@ int init_struct(t_table *table, int argc, char **argv)
 	table->end_simulation = false;
 	init_table_mutex(table);
 	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo + 1));
-	if (table->philos)
-		return (0);
 	init_philos(table);
 	return (0);	
 }
@@ -77,6 +75,7 @@ int	init_philos(t_table *table)
 		table->philos[i].full = false;
 		table->philos[i].meal_counter = 0;
 		table->philos[i].table = table;
+		table->philos[i].time_last_meal = 0;
 		init_philo_mutex(&table->philos[i]);
 		
 		// assign_forks(&table->philos[i], i);

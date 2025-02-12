@@ -6,7 +6,7 @@
 #    By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/16 15:01:28 by raphox            #+#    #+#              #
-#    Updated: 2025/02/11 15:40:11 by rafaria          ###   ########.fr        #
+#    Updated: 2025/02/12 10:30:48 by rafaria          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS			=	${SRCS:.c=.o}
 
 CC			=	cc
 
-# CFLAGS		=	-Wall -Werror -Wextra -g3
+CFLAGS		=	-fsanitize=thread
 
 all			:	${NAME}
 
@@ -34,3 +34,5 @@ fclean			:	clean
 re				:	fclean all
 
 .PHONY			:	all clean fclean re
+
+# -Wall -Werror -Wextra -g3

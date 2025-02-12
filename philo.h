@@ -73,7 +73,7 @@ int check_arguments(int argc, char **argv);
 void assign_forks(t_philo *philo, int philo_position);
 
 // TIME.C : 
-int set_timer();
+long set_timer();
 void my_printf(t_philo *philo, char *str);
 
 #endif
