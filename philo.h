@@ -23,7 +23,7 @@ typedef struct s_table
 	long time_to_die;
 	long nbr_limit_meals;
 	long end_simulation; //Philo died or nbr_limit_meals surpassed
-	int one_philo_dead;
+	long one_philo_dead;
 	long start_dinner_time;
 
 
@@ -31,6 +31,8 @@ typedef struct s_table
 	pthread_mutex_t *thread_dead;
 	pthread_mutex_t *thread_start_dinner_time;
 	pthread_mutex_t *thread_printf;
+	pthread_mutex_t *thread_check_meal;
+
 
 }		t_table;
 

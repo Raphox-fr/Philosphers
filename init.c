@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/12 18:07:10 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/13 18:00:56 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ int init_table_mutex(t_table *table)
 	table->thread_dead = malloc(1 * sizeof(pthread_mutex_t));
 	table->thread_start_dinner_time= malloc(1 * sizeof(pthread_mutex_t));
 	table->thread_printf = malloc(1 * sizeof(pthread_mutex_t));
+	table->thread_check_meal = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(table->thread_dead, NULL);
 	pthread_mutex_init(table->thread_start_dinner_time, NULL);
 	pthread_mutex_init(table->thread_printf, NULL);
+	pthread_mutex_init(table->thread_check_meal, NULL);
 	return (0);
 }
 
@@ -59,6 +61,7 @@ int init_struct(t_table *table, int argc, char **argv)
 			return (0); // ERROR
 		}
 	table->end_simulation = false;
+	table->one_philo_dead = -1;
 	init_table_mutex(table);
 	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo + 1));
 	init_philos(table);
