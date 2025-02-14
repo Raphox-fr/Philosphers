@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/14 16:13:37 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:59:37 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,22 @@ int is_philo_dead(t_philo *philo)
 	// pthread_mutex_unlock(philo->table->thread_dead);
 	return (1);
 }
+int ft_usleep(long time)
+{
+	long start;
+	start = set_timer();
+	while ((set_timer() - start) < time)
+	{
+		usleep(500);
+	}
+	return (1);
+}
 
 int go_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->thread_lock_meal);
+
+	//fourchette
 
 	pthread_mutex_lock(philo->table->thread_dead);
 	pthread_mutex_lock(philo->table->thread_last_time_meal);
@@ -47,11 +59,7 @@ int go_eat(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->table->thread_last_time_meal);
 	pthread_mutex_unlock(philo->table->thread_dead);
-	
-	pthread_mutex_lock(philo->table->thread_printf);
 	my_printf(philo, "is eating");
-	pthread_mutex_unlock(philo->table->thread_printf);
-
 	usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->thread_lock_meal);
 	
@@ -68,10 +76,8 @@ int go_sleep(t_philo *philo)
 		pthread_mutex_unlock(philo->table->thread_dead);
 		return (0);
 	}
-	pthread_mutex_unlock(philo->table->thread_dead);
-	pthread_mutex_lock(philo->table->thread_printf);			
+	pthread_mutex_unlock(philo->table->thread_dead);		
 	my_printf(philo, "is sleeping");
-	pthread_mutex_unlock(philo->table->thread_printf);
 	usleep(philo->table->time_to_sleep);;
 	pthread_mutex_unlock(philo->thread_lock_meal);
 
@@ -81,6 +87,7 @@ int go_sleep(t_philo *philo)
 int go_think(t_philo *philo)
 {
 	pthread_mutex_lock(philo->thread_lock_meal);
+	
 
 	pthread_mutex_lock(philo->table->thread_dead);
 	if (philo->table->end_simulation == 1)
@@ -89,9 +96,7 @@ int go_think(t_philo *philo)
 		return (0);
 	}
 	pthread_mutex_unlock(philo->table->thread_dead);
-	pthread_mutex_lock(philo->table->thread_printf);
 	my_printf(philo, "is thinking");
-	pthread_mutex_unlock(philo->table->thread_printf);
 	
 	pthread_mutex_unlock(philo->thread_lock_meal);
 
@@ -106,7 +111,8 @@ void *dinner_simulation(void *data)
 
 	int i;
 	i = 0;
-	
+	if (philo->id % 2 == 0)
+		usleep(philo->table->time_to_eat);
 	while (is_philo_dead(philo) == 1)
 	{
 		if (go_eat(philo) == 0)
@@ -153,6 +159,7 @@ void dinner_start(t_table *table)
 			i++;
 		}
 	}
+	pthread_mutex_destroy(&table->thread_printf);
 }
 
 void *watch_simulation(void *data)
@@ -178,9 +185,7 @@ void *watch_simulation(void *data)
 				if (pin == table->nbr_philo - 1)
 				{
 					table->end_simulation = 1;
-					pthread_mutex_lock(table->philos->table->thread_printf);
-					printf("EVERYBODY IS FULL\n");
-					pthread_mutex_unlock(table->philos->table->thread_printf);
+					my_printf(&table->philos[i], "END SIMULATION");
 					pthread_mutex_unlock(table->thread_dead);
 					exit(0);
 				}
@@ -189,9 +194,7 @@ void *watch_simulation(void *data)
 			if (table->philos[i].time_last_meal != -1 && ((set_timer() - table->philos[i].time_last_meal) * 1000) > table->time_to_die)
 			{
 				table->end_simulation = 1;
-				pthread_mutex_lock(table->philos->table->thread_printf);
-				my_printf(&table->philos[i], "is dead");
-				pthread_mutex_unlock(table->philos->table->thread_printf);
+				my_printf(&table->philos[i], "trop much time");
 				pthread_mutex_unlock(table->thread_dead);
 				pthread_mutex_unlock(table->thread_last_time_meal);
 				exit(0);
