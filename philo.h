@@ -31,8 +31,7 @@ typedef struct s_table
 	pthread_mutex_t *thread_dead;
 	pthread_mutex_t *thread_start_dinner_time;
 	pthread_mutex_t *thread_printf;
-	pthread_mutex_t *thread_check_meal;
-
+	pthread_mutex_t *thread_last_time_meal;
 
 }		t_table;
 
@@ -51,8 +50,6 @@ typedef struct s_philo
 	pthread_mutex_t *thread_lock_meal;
 
 	t_table *table;
-
-
 }		t_philo;
 
 
@@ -67,6 +64,7 @@ long ft_atol(char *str);
 // DINNER_START.C
 void dinner_start(t_table *table);
 void *dinner_simulation(void *data);
+void *watch_simulation(void *data);
 
 // CHECK_ARGS.C
 int contains_a_digit(char *str);
