@@ -32,6 +32,7 @@ typedef struct s_table
 	pthread_mutex_t *thread_start_dinner_time;
 	pthread_mutex_t thread_printf;
 	pthread_mutex_t *thread_last_time_meal;
+	pthread_mutex_t *thread_forks;
 
 }		t_table;
 
@@ -39,9 +40,9 @@ typedef struct s_philo
 {
 	int id;
 	int full;
-	int  left_fork_id;
 	long meal_counter;
-	int  right_fork_id;
+	int  *left_fork_id;
+	int  *right_fork_id;
 	long time_last_meal;
 	
 	pthread_t    thread_id;
@@ -72,10 +73,15 @@ int check_arguments(int argc, char **argv);
 
 
 // INIT . C
-void assign_forks(t_philo *philo, int philo_position);
+void assign_forks(t_table *table, int philo_position);
 
 // TIME.C : 
 long set_timer();
-void my_printf(t_philo *philo, char *str);
+void my_printf(t_philo *philo, char *str, int i);
+
+// FORKS RELATED
+
+int release_the_forks(t_philo *philo);
+int pick_up_the_forks(t_philo *philo);
 
 #endif

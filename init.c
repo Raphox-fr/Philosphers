@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/14 18:50:14 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/17 18:46:52 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int init_table_mutex(t_table *table)
 {
+	table->thread_forks = malloc(sizeof(pthread_mutex_t) * table->nbr_philo - 1);
 	table->thread_dead = malloc(sizeof(pthread_mutex_t));
 	table->thread_start_dinner_time= malloc(sizeof(pthread_mutex_t));
 	table->thread_last_time_meal= malloc(sizeof(pthread_mutex_t));
@@ -24,7 +25,6 @@ int init_table_mutex(t_table *table)
 	pthread_mutex_init(table->thread_last_time_meal, NULL);
 	return (0);
 }
-
 
 int init_philo_mutex(t_philo *philo)
 {
@@ -36,7 +36,6 @@ int init_philo_mutex(t_philo *philo)
 	pthread_mutex_init(philo->thread_right_fork, NULL);
 	pthread_mutex_init(philo->thread_lock_meal, NULL);
 	return (0);
-
 }
 
 
@@ -74,15 +73,35 @@ int	init_philos(t_table *table)
 
 	while (i < table->nbr_philo)
 	{
-		table->philos[i].id = i + 1;
+		table->philos[i].id = i;
 		table->philos[i].full = 0;
 		table->philos[i].meal_counter = 0;
 		table->philos[i].table = table;
 		table->philos[i].time_last_meal = -1;
 		init_philo_mutex(&table->philos[i]);
-		
-		// assign_forks(&table->philos[i], i);
+		i++;
+	}
+	i = 0;
+
+	while (i < table->nbr_philo)
+	{
+		assign_forks(table, i);
 		i++;
 	}
 	return (0);
+}
+
+void assign_forks(t_table *table, int i)
+{
+
+	if (i == 0)
+	{
+		table->philos[0].thread_left_fork = &table->thread_forks[0];
+		table->philos[0].thread_right_fork = &table->thread_forks[table->nbr_philo - 1];
+	}
+	else
+	{
+		table->philos[i].thread_left_fork = &table->thread_forks[i];
+		table->philos[i].thread_right_fork = &table->thread_forks[i - 1];
+	}
 }
