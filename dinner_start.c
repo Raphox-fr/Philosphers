@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/17 18:55:26 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/17 19:03:23 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,33 @@
 
 int pick_up_the_forks(t_philo *philo)
 {
-	// if (philo->id % 2 == 0) // est pair
-	// {
+	if (philo->id % 2 == 0) // est pair
+	{
 		pthread_mutex_lock(philo->thread_left_fork);
 		my_printf(philo, "has taken a right fork", 0);		
 		pthread_mutex_lock(philo->thread_right_fork);
 		my_printf(philo, "has taken a left fork", 0);		
-	//}
-	// else
-	// {
-	// 	pthread_mutex_lock(philo->thread_left_fork);
-	// 	pthread_mutex_lock(philo->thread_right_fork);		
-	// }
+	}
+	else
+	{
+		pthread_mutex_lock(philo->thread_left_fork);
+		pthread_mutex_lock(philo->thread_right_fork);		
+	}
 	return (1);
 }
 
 int release_the_forks(t_philo *philo)
 {
-	// if (philo->id % 2 == 0) // est pair
-	// {
+	if (philo->id % 2 == 0) // est pair
+	{
+		pthread_mutex_unlock(philo->thread_left_fork);
+		pthread_mutex_unlock(philo->thread_right_fork);
+	}
+	else
+	{
 		pthread_mutex_unlock(philo->thread_right_fork);
 		pthread_mutex_unlock(philo->thread_left_fork);
-	//}
-	// else
-	// {
-	// 	pthread_mutex_unlock(philo->thread_right_fork);
-	// 	pthread_mutex_unlock(philo->thread_left_fork);
-	// }
+	}
 	
 	return (1);
 }
