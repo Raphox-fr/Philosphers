@@ -6,38 +6,31 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/17 19:03:23 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/19 11:34:06 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"philo.h"
 #include <unistd.h>
 
-// int ft_usleep(long time)
-// {
-// 	long start;
-// 	start = set_timer();
-// 	while ((set_timer() - start) < time)
-// 	{
-// 		usleep(500);
-// 	}
-// 	return (1);
-// }
-
 
 int pick_up_the_forks(t_philo *philo)
 {
+	// printf("ici : %d \n", philo->id + 1);
 	if (philo->id % 2 == 0) // est pair
 	{
-		pthread_mutex_lock(philo->thread_left_fork);
-		my_printf(philo, "has taken a right fork", 0);		
 		pthread_mutex_lock(philo->thread_right_fork);
-		my_printf(philo, "has taken a left fork", 0);		
+		my_printf(philo, "has taken a right fork", 0);	
+		pthread_mutex_lock(philo->thread_left_fork);
+		my_printf(philo, "has taken a left fork", 0);	
 	}
 	else
 	{
+		pthread_mutex_lock(philo->thread_right_fork);
+		my_printf(philo, "has taken a right fork", 0);	
 		pthread_mutex_lock(philo->thread_left_fork);
-		pthread_mutex_lock(philo->thread_right_fork);		
+		my_printf(philo, "has taken a left fork", 0);	
+	
 	}
 	return (1);
 }
@@ -51,10 +44,9 @@ int release_the_forks(t_philo *philo)
 	}
 	else
 	{
-		pthread_mutex_unlock(philo->thread_right_fork);
 		pthread_mutex_unlock(philo->thread_left_fork);
+		pthread_mutex_unlock(philo->thread_right_fork);
 	}
-	
 	return (1);
 }
 
@@ -66,8 +58,8 @@ int is_philo_dead(t_philo *philo)
 
 int go_eat(t_philo *philo)
 {
-	//pthread_mutex_lock(philo->thread_lock_meal);
 	pick_up_the_forks(philo);
+	// pthread_mutex_lock(philo->thread_lock_meal);
 	// philo->time_last_meal = set_timer();
 	// philo->meal_counter = philo->meal_counter + 1;
 	my_printf(philo, "is eating", 0);
@@ -82,7 +74,7 @@ int go_eat(t_philo *philo)
 	// 	return (0);
 	// }
 	// pthread_mutex_unlock(philo->table->thread_dead);
-	//pthread_mutex_unlock(philo->thread_lock_meal);
+	// pthread_mutex_unlock(philo->thread_lock_meal);
 	release_the_forks(philo);
 	return (1);
 }
@@ -90,6 +82,7 @@ int go_eat(t_philo *philo)
 int go_sleep(t_philo *philo)
 {
 	// pthread_mutex_lock(philo->thread_lock_meal);
+	
 	my_printf(philo, "is sleeping", 0);
 	usleep(philo->table->time_to_sleep);
 	// pthread_mutex_lock(philo->table->thread_dead);
