@@ -28,10 +28,9 @@ typedef struct s_table
 
 
 	t_philo *philos;
-	pthread_mutex_t *thread_dead;
-	pthread_mutex_t *thread_start_dinner_time;
+	pthread_mutex_t *thread_global;
+	
 	pthread_mutex_t thread_printf;
-	pthread_mutex_t *thread_last_time_meal;
 	pthread_mutex_t *thread_forks;
 
 }		t_table;
@@ -84,4 +83,6 @@ void my_printf(t_philo *philo, char *str, int i);
 int release_the_forks(t_philo *philo);
 int pick_up_the_forks(t_philo *philo);
 
+
+int is_philo_full(t_table *table, int i);
 #endif
