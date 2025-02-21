@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/21 16:57:13 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/21 17:13:28 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int go_eat(t_philo *philo)
 	pick_up_the_forks(philo);
 	philo->time_last_meal = set_timer();
 	my_printf(philo, "has taken a fork", 0);	
-
 	pthread_mutex_lock(philo->table->thread_global);
 	philo->meal_counter = philo->meal_counter + 1;
 	if (philo->table->end_simulation == 1)
@@ -67,12 +66,8 @@ int go_eat(t_philo *philo)
 		return (0);
 	}
 	pthread_mutex_unlock(philo->table->thread_global);
-
-
 	my_printf(philo, "is eating", 0);
 	usleep(philo->table->time_to_eat);
-	
-	
 	release_the_forks(philo);
 	return (1);
 }
@@ -207,12 +202,12 @@ void *watch_simulation(void *data)
 			pthread_mutex_lock(table->thread_global);
 			if (is_philo_full(table, i) == 1)
 				count = count + 1;
-			if (count == table->nbr_limit_meals)
+			if (count == table->nbr_philo)
 			{
+				printf("%ld",table->nbr_limit_meals * table->nbr_philo);
 				table->end_simulation = 1;
 				my_printf(&table->philos[i], "NBR limits meals atteint avec monitor", 0);
 				pthread_mutex_unlock(table->thread_global);
-
 				return (NULL);
 			}
 			pthread_mutex_unlock(table->thread_global);
@@ -228,7 +223,7 @@ void *watch_simulation(void *data)
 
 int is_philo_full(t_table *table, int i)
 {
-	if (table->philos[i].meal_counter > table->nbr_limit_meals)
+	if (table->philos[i].meal_counter >= table->nbr_limit_meals)
 		return (1);
 	return (0);
 }
