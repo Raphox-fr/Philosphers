@@ -85,5 +85,7 @@ int pick_up_the_forks(t_philo *philo);
 
 int is_time_surpassed(t_table *table, int i);
 
+int check_end_simulation(t_philo *philo);
+
 int is_philo_full(t_table *table, int i);
 #endif

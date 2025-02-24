@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:49:44 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/24 14:26:40 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/24 15:18:53 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ long set_timer()
 }
 
 void my_printf(t_philo *philo, char *str, int i)
-{
-	
+{	
 	pthread_mutex_lock(&philo->table->thread_printf);
 	if (i == 1)
 	{
