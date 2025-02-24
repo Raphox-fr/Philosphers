@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/24 16:04:25 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:03:26 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int pick_up_the_forks(t_philo *philo)
 	}
 	else
 	{
-		pthread_mutex_lock(philo->thread_right_fork);
 		pthread_mutex_lock(philo->thread_left_fork);	
+		pthread_mutex_lock(philo->thread_right_fork);
 	}
 	return (1);
 }
@@ -34,13 +34,13 @@ int release_the_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0) // est pair
 	{
-		pthread_mutex_unlock(philo->thread_right_fork);
 		pthread_mutex_unlock(philo->thread_left_fork);
+		pthread_mutex_unlock(philo->thread_right_fork);
 	}
 	else
 	{
-		pthread_mutex_unlock(philo->thread_left_fork);
 		pthread_mutex_unlock(philo->thread_right_fork);
+		pthread_mutex_unlock(philo->thread_left_fork);
 	}
 	return (1);
 }
@@ -73,7 +73,8 @@ int go_eat(t_philo *philo)
 	pick_up_the_forks(philo);
 	if (check_end_simulation(philo) == 0)
 		return (release_the_forks(philo), 0);
-	my_printf(philo, "has taken a fork", 0);	
+	my_printf(philo, "has taken a left fork", 0);
+	my_printf(philo, "has taken a right fork", 0);
 	pthread_mutex_lock(philo->table->thread_global);
 	philo->time_last_meal = set_timer();
 	philo->meal_counter = philo->meal_counter + 1;
@@ -128,6 +129,17 @@ void *dinner_simulation(void *data)
 	return (NULL);
 }
 
+int is_only_one_philo(t_table *table)
+{
+	if (table->nbr_philo == 1)
+	{
+		my_printf(&table->philos[1], "has taken a fork", 0);
+		usleep(table->time_to_eat);
+		return (1);
+	}
+	return (0);
+
+}
 
 void dinner_start(t_table *table)
 {
@@ -192,6 +204,7 @@ void *watch_simulation(void *data)
 			}
 			pthread_mutex_unlock(table->thread_global);
 			i++;
+			// usleep(10);
 		}
 		i = 0;
 		count = 0;

@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/24 15:08:16 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/24 16:34:14 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void assign_forks(t_table *table, int i)
 	if (i == 0)
 	{
 		table->philos[0].thread_left_fork = &table->thread_forks[0];
-		table->philos[0].thread_right_fork = &table->thread_forks[table->nbr_philo];
+		table->philos[0].thread_right_fork = &table->thread_forks[table->nbr_philo - 1];
 	}
 	else
 	{
