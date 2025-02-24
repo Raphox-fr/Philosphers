@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/21 16:45:02 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:35:06 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ int init_struct(t_table *table, int argc, char **argv)
 	table->time_to_eat = ft_atol(argv[3]) * 1000;
 	table->time_to_sleep = ft_atol(argv[4]) * 1000;
 	if (argv[5] != NULL)
-		table->nbr_limit_meals = ft_atol(argv[5]);
+	{
+			table->nbr_limit_meals = ft_atol(argv[5]);
+			printf("nbr_limit_meals : %ld \n", table->nbr_limit_meals);
+		
+	}
 	else
 		table->nbr_limit_meals = -1;
 	if ((table->time_to_die < 6000)

@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:49:44 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/21 15:23:57 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:26:40 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void my_printf(t_philo *philo, char *str, int i)
 	printf("%ld", set_timer() - philo->table->start_dinner_time);
 	printf("  ");
 	printf("%d", philo->id + 1);
-	printf("  ");
+	printf(" ");
 	printf("%s", str);
 	printf("\n");
 	pthread_mutex_unlock(&philo->table->thread_printf);	
