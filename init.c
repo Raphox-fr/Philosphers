@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/24 13:35:06 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/26 16:54:51 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int init_struct(t_table *table, int argc, char **argv)
 	i = 0;
 
 	table->nbr_philo = ft_atol(argv[1]);
-	table->time_to_die = ft_atol(argv[2]) * 1000;
-	table->time_to_eat = ft_atol(argv[3]) * 1000;
-	table->time_to_sleep = ft_atol(argv[4]) * 1000;
+	table->time_to_die = ft_atol(argv[2]);
+	table->time_to_eat = ft_atol(argv[3]);
+	table->time_to_sleep = ft_atol(argv[4]);
 	if (argv[5] != NULL)
 	{
 			table->nbr_limit_meals = ft_atol(argv[5]);
@@ -56,12 +56,12 @@ int init_struct(t_table *table, int argc, char **argv)
 	}
 	else
 		table->nbr_limit_meals = -1;
-	if ((table->time_to_die < 6000)
-		|| (table->time_to_eat < 6000)
-		|| (table->time_to_sleep < 6000))
-		{
-			return (0); // ERROR
-		}
+	// if ((table->time_to_die < 6000)
+	// 	|| (table->time_to_eat < 6000)
+	// 	|| (table->time_to_sleep < 6000))
+	// 	{
+	// 		return (0); // ERROR
+	// 	}
 	table->end_simulation = 0;
 	table->one_philo_dead = -1;
 	init_table_mutex(table);
