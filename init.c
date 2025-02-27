@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/27 12:56:21 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:08:53 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int init_struct(t_table *table, int argc, char **argv)
 	table->end_simulation = 0;
 	table->one_philo_dead = -1;
 	init_table_mutex(table);
-	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo + 1));
+	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo));
 	init_philos(table);
 	return (0);	
 }
@@ -68,7 +68,7 @@ int	init_philos(t_table *table)
 
 	while (i < table->nbr_philo)
 	{
-		printf("COUCOU");
+		// printf("COUCOU");
 		table->philos[i].id = i;
 		table->philos[i].full = 0;
 		table->philos[i].meal_counter = 0;
@@ -95,7 +95,7 @@ void assign_forks(t_table *table, int i)
 	}
 	if (i == 0)
 	{
-		printf("COUCOU\n");
+		// printf("COUCOU\n");
 
 		table->philos[0].thread_left_fork = &table->thread_forks[0];
 		table->philos[0].thread_right_fork = &table->thread_forks[table->nbr_philo - 1];

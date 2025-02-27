@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/27 13:02:04 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:13:15 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,7 @@ void *dinner_simulation(void *data)
 	int i;
 	i = 0;
 	if (philo->table->nbr_philo == 1)
-	{
-		write(1, "BRASSSEEEE\n", 15);
-		// release_the_forks(philo);
 		return (0);
-	}
 	// if (philo->id % 2 == 0)
 	// 	usleep(philo->table->time_to_eat);
 	while (is_philo_dead(philo) == 1)
@@ -179,7 +175,7 @@ void *dinner_simulation(void *data)
 		if (go_think(philo) == 0)
 			return (0);
 	}
-	printf("SORTIE DE LA BOUCLE");
+	// printf("SORTIE DE LA BOUCLE");
 	return (NULL);
 }
 
@@ -193,6 +189,17 @@ void dinner_start(t_table *table)
 	
 	if (table->nbr_limit_meals == 0)
 		return ;
+	if (table->nbr_philo == 1)
+	{
+		table->start_dinner_time = set_timer();
+		pthread_create(&table->philos[0].thread_id, NULL, dinner_simulation, &table->philos[i]);
+		my_printf(&table->philos[0], "has taken a fork", 0);
+		ft_usleep(table->time_to_die, table);
+		my_printf(&table->philos[0], "is dead", 0);
+		pthread_join(table->philos[0].thread_id, NULL);
+		
+		return ;
+	}
 	else
 	{
 		table->start_dinner_time = set_timer();
@@ -247,7 +254,6 @@ void *watch_simulation(void *data)
 				}
 				pthread_mutex_unlock(table->thread_global);
 				i++;
-				// ft_usleep(10, table);
 			}
 			i = 0;
 			count = 0;
