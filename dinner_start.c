@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/26 17:14:22 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:02:04 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int pick_up_the_forks(t_philo *philo)
 	}
 	else
 	{
-		pthread_mutex_lock(philo->thread_right_fork);
 		pthread_mutex_lock(philo->thread_left_fork);	
+		pthread_mutex_lock(philo->thread_right_fork);
 	}
 	return (1);
 }
@@ -34,13 +34,13 @@ int release_the_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0) // est pair
 	{
-		pthread_mutex_unlock(philo->thread_right_fork);
 		pthread_mutex_unlock(philo->thread_left_fork);
+		pthread_mutex_unlock(philo->thread_right_fork);
 	}
 	else
 	{
-		pthread_mutex_unlock(philo->thread_left_fork);
 		pthread_mutex_unlock(philo->thread_right_fork);
+		pthread_mutex_unlock(philo->thread_left_fork);
 	}
 	return (1);
 }
@@ -53,11 +53,11 @@ int is_philo_dead(t_philo *philo)
 
 int go_eat(t_philo *philo)
 {
+	
 	pick_up_the_forks(philo);
 	pthread_mutex_lock(philo->table->thread_global);
 	if (philo->table->end_simulation == 1)
 	{
-		write(1, "END SIMULATION\n", 15);
 		pthread_mutex_unlock(philo->table->thread_global);
 		release_the_forks(philo);
 		return (0);
@@ -72,7 +72,6 @@ int go_eat(t_philo *philo)
 	pthread_mutex_lock(philo->table->thread_global);
 	if (philo->table->end_simulation == 1)
 	{
-		write(1, "END SIMULATION\n", 15);
 		pthread_mutex_unlock(philo->table->thread_global);
 		release_the_forks(philo);
 		return (0);
@@ -99,7 +98,7 @@ int go_sleep(t_philo *philo)
 	pthread_mutex_lock(philo->table->thread_global);
 	if (philo->table->end_simulation == 1)
 	{
-		write(1, "END SIMULATION\n", 15);
+		// write(1, "END SIMULATION\n", 15);
 		pthread_mutex_unlock(philo->table->thread_global);
 		return (0);
 	}
@@ -109,7 +108,7 @@ int go_sleep(t_philo *philo)
 	pthread_mutex_lock(philo->table->thread_global);
 	if (philo->table->end_simulation == 1)
 	{
-		write(1, "END SIMULATION\n", 15);
+		// write(1, "END SIMULATION\n", 15);
 		pthread_mutex_unlock(philo->table->thread_global);
 		return (0);
 	}
@@ -134,7 +133,7 @@ int go_think(t_philo *philo)
 	pthread_mutex_lock(philo->table->thread_global);
 	if (philo->table->end_simulation == 1)
 	{
-		write(1, "END SIMULATION\n", 15);
+		// write(1, "END SIMULATION\n", 15);
 		pthread_mutex_unlock(philo->table->thread_global);
 		return (0);
 	}
@@ -163,6 +162,12 @@ void *dinner_simulation(void *data)
 
 	int i;
 	i = 0;
+	if (philo->table->nbr_philo == 1)
+	{
+		write(1, "BRASSSEEEE\n", 15);
+		// release_the_forks(philo);
+		return (0);
+	}
 	// if (philo->id % 2 == 0)
 	// 	usleep(philo->table->time_to_eat);
 	while (is_philo_dead(philo) == 1)
@@ -187,8 +192,6 @@ void dinner_start(t_table *table)
 	pthread_t watch;
 	
 	if (table->nbr_limit_meals == 0)
-		return ;
-	if (table->nbr_philo == 1)
 		return ;
 	else
 	{
