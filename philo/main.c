@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:50:02 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 12:10:01 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:03:57 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,3 @@ int	main(int argc, char **argv)
 	dinner_start(&table);
 	return (0);
 }
-
-// printf("%ld", ft_atol(argv[1]));
