@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 13:23:38 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:05:45 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void					assign_forks(t_table *table, int philo_position);
 long					set_timer(void);
 void					my_printf(t_philo *philo, char *str, int i);
 
-// FORKS RELATED
+// FORKS 
 
 int						release_the_forks(t_philo *philo);
 int						pick_up_the_forks(t_philo *philo);
