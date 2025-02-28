@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 12:31:02 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:23:38 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@
 int	go_eat(t_philo *philo)
 {
 	pick_up_the_forks(philo);
-	pthread_mutex_lock(philo->table->thread_global);
+	pthread_mutex_lock(philo->table->thrd_gbl);
 	if (philo->table->end_simulation == 1 || philo->full == 1)
-		return (pthread_mutex_unlock(philo->table->thread_global),
+		return (pthread_mutex_unlock(philo->table->thrd_gbl),
 			release_the_forks(philo), 0);
-	pthread_mutex_unlock(philo->table->thread_global);
+	pthread_mutex_unlock(philo->table->thrd_gbl);
 	my_printf(philo, "has taken a fork", 0);
 	my_printf(philo, "has taken a fork", 0);
-	pthread_mutex_lock(philo->table->thread_global);
+	pthread_mutex_lock(philo->table->thrd_gbl);
 	philo->time_last_meal = set_timer();
 	philo->meal_counter = philo->meal_counter + 1;
-	pthread_mutex_unlock(philo->table->thread_global);
-	pthread_mutex_lock(philo->table->thread_global);
+	pthread_mutex_unlock(philo->table->thrd_gbl);
+	pthread_mutex_lock(philo->table->thrd_gbl);
 	if (philo->table->end_simulation == 1 || philo->full == 1)
 	{
-		pthread_mutex_unlock(philo->table->thread_global);
+		pthread_mutex_unlock(philo->table->thrd_gbl);
 		release_the_forks(philo);
 		return (0);
 	}
-	pthread_mutex_unlock(philo->table->thread_global);
+	pthread_mutex_unlock(philo->table->thrd_gbl);
 	my_printf(philo, "is eating", 0);
 	ft_usleep(philo->table->time_to_eat, philo->table);
 	release_the_forks(philo);
@@ -43,34 +43,34 @@ int	go_eat(t_philo *philo)
 
 int	go_sleep(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->thread_global);
+	pthread_mutex_lock(philo->table->thrd_gbl);
 	if (philo->table->end_simulation == 1 || philo->full == 1)
 	{
-		pthread_mutex_unlock(philo->table->thread_global);
+		pthread_mutex_unlock(philo->table->thrd_gbl);
 		return (0);
 	}
-	pthread_mutex_unlock(philo->table->thread_global);
+	pthread_mutex_unlock(philo->table->thrd_gbl);
 	my_printf(philo, "is sleeping", 0);
 	ft_usleep(philo->table->time_to_sleep, philo->table);
-	pthread_mutex_lock(philo->table->thread_global);
+	pthread_mutex_lock(philo->table->thrd_gbl);
 	if (philo->table->end_simulation == 1 || philo->full == 1)
 	{
-		pthread_mutex_unlock(philo->table->thread_global);
+		pthread_mutex_unlock(philo->table->thrd_gbl);
 		return (0);
 	}
-	pthread_mutex_unlock(philo->table->thread_global);
+	pthread_mutex_unlock(philo->table->thrd_gbl);
 	return (1);
 }
 
 int	go_think(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->thread_global);
+	pthread_mutex_lock(philo->table->thrd_gbl);
 	if (philo->table->end_simulation == 1 || philo->full == 1)
 	{
-		pthread_mutex_unlock(philo->table->thread_global);
+		pthread_mutex_unlock(philo->table->thrd_gbl);
 		return (0);
 	}
-	pthread_mutex_unlock(philo->table->thread_global);
+	pthread_mutex_unlock(philo->table->thrd_gbl);
 	my_printf(philo, "is thinking", 0);
 	return (1);
 }

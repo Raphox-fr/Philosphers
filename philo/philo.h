@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 13:15:36 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:23:38 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_table
 	long				start_dinner_time;
 
 	t_philo				*philos;
-	pthread_mutex_t		*thread_global;
+	pthread_mutex_t		*thrd_gbl;
 
 	pthread_mutex_t		thread_printf;
 	pthread_mutex_t		*thread_forks;

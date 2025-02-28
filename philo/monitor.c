@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:07:48 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 13:17:18 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:52:14 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	*watch_simulation(void *data)
 	{
 		while (i < table->nbr_philo)
 		{
-			pthread_mutex_lock(table->thread_global);
+			pthread_mutex_lock(table->thrd_gbl);
 			if (is_philo_full(table, i) == 1)
 				count = count + 1;
 			if (check_all(table, i, count) == '1')
 				return (NULL);
-			pthread_mutex_unlock(table->thread_global);
+			pthread_mutex_unlock(table->thrd_gbl);
 			i++;
 		}
 		i = 0;
@@ -44,8 +44,8 @@ char	check_all(t_table *table, int i, int count)
 	{
 		table->end_simulation = 1;
 		if (count != -1 && count != table->nbr_philo)
-			my_printf(&table->philos[i], "is dead", 0);
-		return (pthread_mutex_unlock(table->thread_global), '1');
+			my_printf(&table->philos[i], "died", 0);
+		return (pthread_mutex_unlock(table->thrd_gbl), '1');
 	}
 	return ('0');
 }

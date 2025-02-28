@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 12:11:43 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:55:21 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,53 @@
 int	init_table_mutex(t_table *table)
 {
 	table->thread_forks = malloc(sizeof(pthread_mutex_t) * table->nbr_philo);
-	table->thread_global = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(table->thread_global, NULL);
-	pthread_mutex_init(&table->thread_printf, NULL);
+	if (table->thread_forks == NULL)
+		return (-1);
+	table->thrd_gbl = malloc(sizeof(pthread_mutex_t));
+	if (table->thrd_gbl == NULL)
+	{
+		free(table->thread_forks);
+		return (-1);
+	}
+	if (pthread_mutex_init(table->thrd_gbl, NULL) != 0)
+	{
+		free(table->thrd_gbl);
+		return (-1);
+	}
+	if (pthread_mutex_init(&table->thread_printf, NULL) != 0)
+	{
+		pthread_mutex_destroy(table->thrd_gbl);
+		free(table->thrd_gbl);
+		free(table->thread_forks);
+		return (-1);
+	}
 	return (0);
 }
 
 int	init_philo_mutex(t_philo *philo)
 {
 	philo->thread_l_fork = malloc(sizeof(pthread_mutex_t));
+	if (philo->thread_l_fork == NULL)
+		return (-1);
 	philo->thread_r_fork = malloc(sizeof(pthread_mutex_t));
-	philo->thread_lock_meal = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(philo->thread_l_fork, NULL);
-	pthread_mutex_init(philo->thread_r_fork, NULL);
-	pthread_mutex_init(philo->thread_lock_meal, NULL);
+	if (philo->thread_r_fork == NULL)
+	{
+		free(philo->thread_l_fork);
+		return (-1);
+	}
+	if (pthread_mutex_init(philo->thread_l_fork, NULL) != 0)
+	{
+		free(philo->thread_l_fork);
+		free(philo->thread_r_fork);
+		return (-1);
+	}
+	if (pthread_mutex_init(philo->thread_r_fork, NULL) != 0)
+	{
+		pthread_mutex_destroy(philo->thread_l_fork);
+		free(philo->thread_l_fork);
+		free(philo->thread_r_fork);
+		return (-1);
+	}
 	return (0);
 }
 
