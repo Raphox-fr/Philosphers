@@ -6,13 +6,13 @@
 #    By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/16 15:01:28 by raphox            #+#    #+#              #
-#    Updated: 2025/02/17 18:31:15 by rafaria          ###   ########.fr        #
+#    Updated: 2025/02/28 12:03:01 by rafaria          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	philo
 
-SRCS			=	tools.c main.c check_args.c dinner_start.c time.c init.c
+SRCS			=	tools.c main.c check_args.c dinner_start.c time.c init.c forks.c monitor.c
 
 OBJS			=	${SRCS:.c=.o}
 

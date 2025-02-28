@@ -6,14 +6,13 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/27 13:08:53 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:11:43 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"philo.h"
+#include "philo.h"
 
-
-int init_table_mutex(t_table *table)
+int	init_table_mutex(t_table *table)
 {
 	table->thread_forks = malloc(sizeof(pthread_mutex_t) * table->nbr_philo);
 	table->thread_global = malloc(sizeof(pthread_mutex_t));
@@ -22,23 +21,22 @@ int init_table_mutex(t_table *table)
 	return (0);
 }
 
-int init_philo_mutex(t_philo *philo)
+int	init_philo_mutex(t_philo *philo)
 {
-	philo->thread_left_fork = malloc(sizeof(pthread_mutex_t));
-	philo->thread_right_fork = malloc(sizeof(pthread_mutex_t));
+	philo->thread_l_fork = malloc(sizeof(pthread_mutex_t));
+	philo->thread_r_fork = malloc(sizeof(pthread_mutex_t));
 	philo->thread_lock_meal = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(philo->thread_left_fork, NULL);
-	pthread_mutex_init(philo->thread_right_fork, NULL);
+	pthread_mutex_init(philo->thread_l_fork, NULL);
+	pthread_mutex_init(philo->thread_r_fork, NULL);
 	pthread_mutex_init(philo->thread_lock_meal, NULL);
 	return (0);
 }
 
-
-int init_struct(t_table *table, int argc, char **argv)
+int	init_struct(t_table *table, int argc, char **argv)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	table->nbr_philo = ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
@@ -47,28 +45,26 @@ int init_struct(t_table *table, int argc, char **argv)
 		table->nbr_limit_meals = ft_atol(argv[5]);
 	else
 		table->nbr_limit_meals = -1;
-	// if ((table->time_to_die < 6000)
-	// 	|| (table->time_to_eat < 6000)
-	// 	|| (table->time_to_sleep < 6000))
-	// 	{
-	// 		return (0); // ERROR
-	// 	}
+	if ((table->time_to_die < 60) || (table->time_to_eat < 60)
+		|| (table->time_to_sleep < 60))
+	{
+		return (0);
+	}
 	table->end_simulation = 0;
 	table->one_philo_dead = -1;
 	init_table_mutex(table);
 	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo));
 	init_philos(table);
-	return (0);	
+	return (0);
 }
 
 int	init_philos(t_table *table)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	while (i < table->nbr_philo)
 	{
-		// printf("COUCOU");
 		table->philos[i].id = i;
 		table->philos[i].full = 0;
 		table->philos[i].meal_counter = 0;
@@ -86,23 +82,21 @@ int	init_philos(t_table *table)
 	return (0);
 }
 
-void assign_forks(t_table *table, int i)
+void	assign_forks(t_table *table, int i)
 {
-
 	if (i == 0 && table->nbr_philo == 1)
 	{
-		table->philos[0].thread_left_fork = &table->thread_forks[0];
+		table->philos[0].thread_l_fork = &table->thread_forks[0];
 	}
 	if (i == 0)
 	{
-		// printf("COUCOU\n");
-
-		table->philos[0].thread_left_fork = &table->thread_forks[0];
-		table->philos[0].thread_right_fork = &table->thread_forks[table->nbr_philo - 1];
+		table->philos[0].thread_l_fork = &table->thread_forks[0];
+		table->philos[0].thread_r_fork = &table->thread_forks[table->nbr_philo
+			- 1];
 	}
 	else
 	{
-		table->philos[i].thread_left_fork = &table->thread_forks[i];
-		table->philos[i].thread_right_fork = &table->thread_forks[i - 1];
+		table->philos[i].thread_l_fork = &table->thread_forks[i];
+		table->philos[i].thread_r_fork = &table->thread_forks[i - 1];
 	}
 }

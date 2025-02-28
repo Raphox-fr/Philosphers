@@ -6,17 +6,17 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:30:40 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/04 12:47:03 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:20:48 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"philo.h"
+#include "philo.h"
 
-int contains_a_digit(char *str)
+int	contains_a_digit(char *str)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	while (str[i] != '\0')
 	{
 		if ((str[i] < '0' || str[i] > '9') && (str[i] != '\0'))
@@ -26,14 +26,13 @@ int contains_a_digit(char *str)
 	return (1);
 }
 
-int check_arguments(int argc, char **argv)
+int	check_arguments(int argc, char **argv)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	j = 0;
-
 	if (ft_atol(argv[1]) > 200)
 	{
 		printf("Error: too many philos\n");
