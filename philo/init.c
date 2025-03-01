@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 13:55:21 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:23:09 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ int	init_table_mutex(t_table *table)
 	table->thread_forks = malloc(sizeof(pthread_mutex_t) * table->nbr_philo);
 	if (table->thread_forks == NULL)
 		return (-1);
+	
+	int i;
+	i = 0;
+	while (i < table->nbr_philo)
+	{
+		pthread_mutex_init(&table->thread_forks[i], NULL);
+		i++;
+	}
+
+		
 	table->thrd_gbl = malloc(sizeof(pthread_mutex_t));
 	if (table->thrd_gbl == NULL)
 	{
@@ -70,6 +80,9 @@ int	init_struct(t_table *table, int argc, char **argv)
 	int	i;
 
 	i = 0;
+	if (argc == 0)
+		return (0);
+	
 	table->nbr_philo = ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);

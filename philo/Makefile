@@ -6,7 +6,7 @@
 #    By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/16 15:01:28 by raphox            #+#    #+#              #
-#    Updated: 2025/02/28 13:50:24 by rafaria          ###   ########.fr        #
+#    Updated: 2025/02/28 18:25:21 by rafaria          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ SRCS			=	tools.c main.c check_args.c dinner_start.c time.c init.c forks.c monito
 
 OBJS			=	${SRCS:.c=.o}
 
-CC			=	cc
+CC			=	gcc
 
-# CFLAGS		=	-Werror -fsanitize=thread
+CFLAGS		=	-Werror -fsanitize=thread
 
 all			:	${NAME}
 

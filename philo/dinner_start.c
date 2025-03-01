@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 13:23:38 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/01 12:30:22 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	go_eat(t_philo *philo)
 	philo->meal_counter = philo->meal_counter + 1;
 	pthread_mutex_unlock(philo->table->thrd_gbl);
 	pthread_mutex_lock(philo->table->thrd_gbl);
+	my_printf(philo, "is eating", 0);
 	if (philo->table->end_simulation == 1 || philo->full == 1)
 	{
 		pthread_mutex_unlock(philo->table->thrd_gbl);
@@ -35,7 +36,6 @@ int	go_eat(t_philo *philo)
 		return (0);
 	}
 	pthread_mutex_unlock(philo->table->thrd_gbl);
-	my_printf(philo, "is eating", 0);
 	ft_usleep(philo->table->time_to_eat, philo->table);
 	release_the_forks(philo);
 	return (1);
@@ -44,7 +44,7 @@ int	go_eat(t_philo *philo)
 int	go_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(philo->table->thrd_gbl);
-	if (philo->table->end_simulation == 1 || philo->full == 1)
+	if (philo->table->end_simulation == 1)
 	{
 		pthread_mutex_unlock(philo->table->thrd_gbl);
 		return (0);
@@ -53,7 +53,7 @@ int	go_sleep(t_philo *philo)
 	my_printf(philo, "is sleeping", 0);
 	ft_usleep(philo->table->time_to_sleep, philo->table);
 	pthread_mutex_lock(philo->table->thrd_gbl);
-	if (philo->table->end_simulation == 1 || philo->full == 1)
+	if (philo->table->end_simulation == 1)
 	{
 		pthread_mutex_unlock(philo->table->thrd_gbl);
 		return (0);
@@ -65,7 +65,7 @@ int	go_sleep(t_philo *philo)
 int	go_think(t_philo *philo)
 {
 	pthread_mutex_lock(philo->table->thrd_gbl);
-	if (philo->table->end_simulation == 1 || philo->full == 1)
+	if (philo->table->end_simulation == 1)
 	{
 		pthread_mutex_unlock(philo->table->thrd_gbl);
 		return (0);

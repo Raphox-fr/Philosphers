@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 14:05:45 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/02/28 20:15:22 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ typedef struct s_philo
 	int					id;
 	int					full;
 	long				meal_counter;
-	int					*left_fork_id;
-	int					*right_fork_id;
 	long				time_last_meal;
 
 	pthread_t			thread_id;
