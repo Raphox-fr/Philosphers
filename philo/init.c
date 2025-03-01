@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 18:23:09 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/01 15:50:06 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,31 @@
 
 int	init_table_mutex(t_table *table)
 {
-	table->thread_forks = malloc(sizeof(pthread_mutex_t) * table->nbr_philo);
-	if (table->thread_forks == NULL)
-		return (-1);
-	
-	int i;
-	i = 0;
-	while (i < table->nbr_philo)
-	{
-		pthread_mutex_init(&table->thread_forks[i], NULL);
-		i++;
-	}
+	// table-> = malloc(sizeof(pthread_mutex_t));
 
-		
 	table->thrd_gbl = malloc(sizeof(pthread_mutex_t));
 	if (table->thrd_gbl == NULL)
-	{
-		free(table->thread_forks);
 		return (-1);
-	}
 	if (pthread_mutex_init(table->thrd_gbl, NULL) != 0)
-	{
-		free(table->thrd_gbl);
-		return (-1);
-	}
+		return (free(table->thrd_gbl), -1);
 	if (pthread_mutex_init(&table->thread_printf, NULL) != 0)
 	{
 		pthread_mutex_destroy(table->thrd_gbl);
 		free(table->thrd_gbl);
-		free(table->thread_forks);
 		return (-1);
+	}
+	table->thread_forks = malloc(sizeof(pthread_mutex_t) * table->nbr_philo);
+	if (table->thread_forks == NULL)
+	{
+		pthread_mutex_destroy(table->thrd_gbl);
+		pthread_mutex_destroy(&table->thread_printf);
+		return (free(table->thrd_gbl), -1);
+	}
+	if (init_forks(table) == -1)
+	{
+		pthread_mutex_destroy(table->thrd_gbl);
+		pthread_mutex_destroy(&table->thread_printf);
+		return (free(table->thrd_gbl),free(table->thread_forks),  -1);
 	}
 	return (0);
 }
@@ -82,7 +77,6 @@ int	init_struct(t_table *table, int argc, char **argv)
 	i = 0;
 	if (argc == 0)
 		return (0);
-	
 	table->nbr_philo = ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
@@ -93,12 +87,11 @@ int	init_struct(t_table *table, int argc, char **argv)
 		table->nbr_limit_meals = -1;
 	if ((table->time_to_die < 60) || (table->time_to_eat < 60)
 		|| (table->time_to_sleep < 60))
-	{
 		return (0);
-	}
 	table->end_simulation = 0;
 	table->one_philo_dead = -1;
-	init_table_mutex(table);
+	if (init_table_mutex(table) == -1)
+		return (-1);
 	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo));
 	init_philos(table);
 	return (0);

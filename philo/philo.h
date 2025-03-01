@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 20:15:22 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/01 15:07:24 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int						init_philos(t_table *table);
 long					ft_atol(char *str);
 
 // DINNER_START.C
-void					dinner_start(t_table *table);
+int						dinner_start(t_table *table);
 void					*dinner_simulation(void *data);
 void					*watch_simulation(void *data);
 
@@ -83,10 +83,14 @@ void					assign_forks(t_table *table, int philo_position);
 long					set_timer(void);
 void					my_printf(t_philo *philo, char *str, int i);
 
-// FORKS 
+// FORKS
 
 int						release_the_forks(t_philo *philo);
 int						pick_up_the_forks(t_philo *philo);
+
+int						init_forks(t_table *table);
+int						destroy_forks(t_table *table, int i);
+int						destroy_all_forks(t_table *table);
 
 int						is_philo_full(t_table *table, int i);
 

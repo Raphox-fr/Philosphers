@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/01 12:30:22 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:26:09 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ int	go_eat(t_philo *philo)
 {
 	pick_up_the_forks(philo);
 	pthread_mutex_lock(philo->table->thrd_gbl);
-	if (philo->table->end_simulation == 1 || philo->full == 1)
-		return (pthread_mutex_unlock(philo->table->thrd_gbl),
-			release_the_forks(philo), 0);
-	pthread_mutex_unlock(philo->table->thrd_gbl);
-	my_printf(philo, "has taken a fork", 0);
-	my_printf(philo, "has taken a fork", 0);
-	pthread_mutex_lock(philo->table->thrd_gbl);
 	philo->time_last_meal = set_timer();
 	philo->meal_counter = philo->meal_counter + 1;
+	if (philo->full != 1)
+	{
+		my_printf(philo, "has taken a fork", 0);
+		my_printf(philo, "has taken a fork", 0);
+		my_printf(philo, "is eating", 0);
+	}
 	pthread_mutex_unlock(philo->table->thrd_gbl);
 	pthread_mutex_lock(philo->table->thrd_gbl);
-	my_printf(philo, "is eating", 0);
+	
 	if (philo->table->end_simulation == 1 || philo->full == 1)
 	{
 		pthread_mutex_unlock(philo->table->thrd_gbl);
@@ -96,16 +95,16 @@ void	*dinner_simulation(void *data)
 	return (NULL);
 }
 
-void	dinner_start(t_table *table)
+int	dinner_start(t_table *table)
 {
 	int			i;
 	pthread_t	watch;
 
 	i = 0;
 	if (table->nbr_limit_meals == 0)
-		return ;
+		return (0);
 	if (table->nbr_philo == 1)
-		return (one_philo_table(table));
+		return (one_philo_table(table), 0);
 	table->start_dinner_time = set_timer();
 	pthread_create(&watch, NULL, &watch_simulation, table);
 	while (i < table->nbr_philo)
