@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/01 15:07:24 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:12:02 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_philo
 	pthread_t			thread_id;
 	pthread_mutex_t		*thread_l_fork;
 	pthread_mutex_t		*thread_r_fork;
-	pthread_mutex_t		*thread_lock_meal;
 
 	t_table				*table;
 }						t_philo;
@@ -104,4 +103,5 @@ void					one_philo_table(t_table *table);
 
 char					check_all(t_table *table, int i, int count);
 
+void					destroy_all(t_table *table, int i);
 #endif

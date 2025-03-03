@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/03 14:04:11 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:15:39 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	init_table_mutex(t_table *table)
 	}
 	return (0);
 }
+
 
 int	init_philo_mutex(t_philo *philo)
 {

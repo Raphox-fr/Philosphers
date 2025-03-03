@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:28:46 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/01 14:55:36 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:16:56 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ int destroy_forks(t_table *table, int i)
 	return (-1);
 }
 
-int destroy_all_forks(t_table *table)
-{
-	int i;
-	i = table->nbr_limit_meals - 1;
-	while (i > 0)
-	{
-		pthread_mutex_destroy(&table->thread_forks[i]);
-		i--;
-	}
-	return (-1);
-}
+// int destroy_all_forks(t_table *table)
+// {
+// 	int i;
+// 	i = table->nbr_limit_meals - 1;
+// 	while (i > 0)
+// 	{
+// 		pthread_mutex_destroy(&table->thread_forks[i]);
+// 		i--;
+// 	}
+// 	return (-1);
+// }
 
 int  init_forks(t_table *table)
 {
@@ -82,5 +82,6 @@ int  init_forks(t_table *table)
 			return (-1);
 		}
 		i++;
-	}	
+	}
+	return (0);
 }
