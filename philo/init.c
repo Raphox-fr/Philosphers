@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/01 15:50:06 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:04:11 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	init_table_mutex(t_table *table)
 {
-	// table-> = malloc(sizeof(pthread_mutex_t));
 
 	table->thrd_gbl = malloc(sizeof(pthread_mutex_t));
 	if (table->thrd_gbl == NULL)

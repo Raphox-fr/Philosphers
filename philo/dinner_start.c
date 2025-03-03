@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/01 16:26:09 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/03 12:40:01 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 int	go_eat(t_philo *philo)
 {
 	pick_up_the_forks(philo);
+	pthread_mutex_lock(philo->table->thrd_gbl);
+	
+	if (philo->table->end_simulation == 1 && philo->table->nbr_limit_meals == -1)
+	{
+		pthread_mutex_unlock(philo->table->thrd_gbl);
+		release_the_forks(philo);
+		return (0);
+	}
+	pthread_mutex_unlock(philo->table->thrd_gbl);
+
+	
 	pthread_mutex_lock(philo->table->thrd_gbl);
 	philo->time_last_meal = set_timer();
 	philo->meal_counter = philo->meal_counter + 1;
@@ -28,7 +39,7 @@ int	go_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->table->thrd_gbl);
 	pthread_mutex_lock(philo->table->thrd_gbl);
 	
-	if (philo->table->end_simulation == 1 || philo->full == 1)
+	if (philo->table->end_simulation == 1)
 	{
 		pthread_mutex_unlock(philo->table->thrd_gbl);
 		release_the_forks(philo);

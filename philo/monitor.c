@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:07:48 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/01 15:04:55 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/03 12:06:16 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	check_all(t_table *table, int i, int count)
 	if (is_time_surpassed(table, i) == 1 || (count == table->nbr_philo))
 	{
 		table->end_simulation = 1;
-		if (count == -1 && count != table->nbr_philo)
+		if (count != table->nbr_philo && is_time_surpassed(table, i) == 1)
 			my_printf(&table->philos[i], "died", 0);
 		return (pthread_mutex_unlock(table->thrd_gbl), '1');
 	}
