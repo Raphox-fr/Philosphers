@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 16:30:29 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:12:54 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ int	init_table_mutex(t_table *table)
 
 int	init_struct(t_table *table, int argc, char **argv)
 {
-	int	i;
-
-	i = 0;
 	if (argc == 0)
 		return (0);
 	table->nbr_philo = ft_atol(argv[1]);

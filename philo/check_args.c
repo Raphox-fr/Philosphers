@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:30:40 by rafaria           #+#    #+#             */
-/*   Updated: 2025/02/28 12:20:48 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:12:28 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	contains_a_digit(char *str)
 int	check_arguments(int argc, char **argv)
 {
 	int	i;
-	int	j;
 
 	i = 1;
-	j = 0;
 	if (ft_atol(argv[1]) > 200)
 	{
 		printf("Error: too many philos\n");

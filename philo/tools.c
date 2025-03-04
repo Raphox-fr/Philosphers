@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:28:46 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 16:33:01 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:14:42 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ void	one_philo_table(t_table *table)
 	if (pthread_create(&table->philos[0].thread_id, NULL, dinner_simulation,
 			&table->philos[0]) != 0)
 	{
-		return (destroy_all(table, 0));
+		return (destroy_all(table));
 	}
 	my_printf(&table->philos[0], "has taken a fork", 0);
 	ft_usleep(table->time_to_die, table);
 	my_printf(&table->philos[0], "is dead", 0);
 	if (pthread_join(table->philos[0].thread_id, NULL) != 0)
 	{
-		return (destroy_all(table, 0));
+		return (destroy_all(table));
 	}
 }
 
-int	destroy_forks(t_table *table, int i)
+int	destroy_forks(t_table *table)
 {
 	pthread_mutex_destroy(table->thread_forks);
 	return (-1);
@@ -77,7 +77,7 @@ int	init_forks(t_table *table)
 	{
 		if (pthread_mutex_init(&table->thread_forks[i], NULL) != 0)
 		{
-			destroy_forks(table, i);
+			destroy_forks(table);
 			return (-1);
 		}
 		i++;

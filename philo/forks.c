@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:59:44 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 16:47:02 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:15:02 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	release_the_forks(t_philo *philo)
 	return (1);
 }
 
-int	is_philo_dead(t_philo *philo)
+int	is_philo_dead()
 {
 	return (1);
 }
@@ -55,12 +55,13 @@ int	dinner_start_2(t_table *table)
 	while (i < table->nbr_philo)
 	{
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
-			return (destroy_all(table, i), -1);
+			return (destroy_all(table), -1);
 		i++;
 	}
+	return (0);
 }
 
-void	destroy_all(t_table *table, int i)
+void	destroy_all(t_table *table)
 {
 	pthread_mutex_destroy(table->thrd_gbl);
 	pthread_mutex_destroy(&table->thread_printf);

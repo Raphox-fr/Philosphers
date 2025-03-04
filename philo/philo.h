@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 16:38:06 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:14:33 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int						release_the_forks(t_philo *philo);
 int						pick_up_the_forks(t_philo *philo);
 
 int						init_forks(t_table *table);
-int						destroy_forks(t_table *table, int i);
+int						destroy_forks(t_table *table);
 int						destroy_all_forks(t_table *table);
 
 int						is_philo_full(t_table *table, int i);
@@ -97,13 +97,13 @@ int						ft_usleep(long time, t_table *table);
 
 int						is_time_surpassed(t_table *table, int i);
 
-int						is_philo_dead(t_philo *philo);
+int						is_philo_dead();
 
 void					one_philo_table(t_table *table);
 
 char					check_all(t_table *table, int i, int count);
 
-void					destroy_all(t_table *table, int i);
+void					destroy_all(t_table *table);
 
 void					print_trinite(t_philo *philo);
 
