@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:14:33 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:26:48 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int						ft_usleep(long time, t_table *table);
 
 int						is_time_surpassed(t_table *table, int i);
 
-int						is_philo_dead();
+int						is_philo_dead(void);
 
 void					one_philo_table(t_table *table);
 

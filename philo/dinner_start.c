@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:16:19 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:28:56 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	go_eat(t_philo *philo)
 	if (philo->table->nbr_limit_meals != -2
 		&& philo->meal_counter > philo->table->nbr_limit_meals)
 		return (pthread_mutex_unlock(philo->table->thrd_gbl),
-			release_the_forks(philo), 0);
+			release_the_forks(philo), 1);
 	my_printf(philo, "has taken a fork", 0);
 	my_printf(philo, "has taken a fork", 0);
 	my_printf(philo, "is eating", 0);

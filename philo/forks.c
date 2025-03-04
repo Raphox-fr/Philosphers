@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:59:44 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:15:02 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:26:33 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	release_the_forks(t_philo *philo)
 	return (1);
 }
 
-int	is_philo_dead()
+int	is_philo_dead(void)
 {
 	return (1);
 }
