@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/03 16:15:39 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:30:29 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	init_table_mutex(t_table *table)
 {
-
 	table->thrd_gbl = malloc(sizeof(pthread_mutex_t));
 	if (table->thrd_gbl == NULL)
 		return (-1);
@@ -37,35 +36,7 @@ int	init_table_mutex(t_table *table)
 	{
 		pthread_mutex_destroy(table->thrd_gbl);
 		pthread_mutex_destroy(&table->thread_printf);
-		return (free(table->thrd_gbl),free(table->thread_forks),  -1);
-	}
-	return (0);
-}
-
-
-int	init_philo_mutex(t_philo *philo)
-{
-	philo->thread_l_fork = malloc(sizeof(pthread_mutex_t));
-	if (philo->thread_l_fork == NULL)
-		return (-1);
-	philo->thread_r_fork = malloc(sizeof(pthread_mutex_t));
-	if (philo->thread_r_fork == NULL)
-	{
-		free(philo->thread_l_fork);
-		return (-1);
-	}
-	if (pthread_mutex_init(philo->thread_l_fork, NULL) != 0)
-	{
-		free(philo->thread_l_fork);
-		free(philo->thread_r_fork);
-		return (-1);
-	}
-	if (pthread_mutex_init(philo->thread_r_fork, NULL) != 0)
-	{
-		pthread_mutex_destroy(philo->thread_l_fork);
-		free(philo->thread_l_fork);
-		free(philo->thread_r_fork);
-		return (-1);
+		return (free(table->thrd_gbl), free(table->thread_forks), -1);
 	}
 	return (0);
 }
@@ -84,7 +55,7 @@ int	init_struct(t_table *table, int argc, char **argv)
 	if (argv[5] != NULL)
 		table->nbr_limit_meals = ft_atol(argv[5]);
 	else
-		table->nbr_limit_meals = -1;
+		table->nbr_limit_meals = -2;
 	if ((table->time_to_die < 60) || (table->time_to_eat < 60)
 		|| (table->time_to_sleep < 60))
 		return (0);
@@ -109,7 +80,6 @@ int	init_philos(t_table *table)
 		table->philos[i].meal_counter = 0;
 		table->philos[i].table = table;
 		table->philos[i].time_last_meal = -1;
-		init_philo_mutex(&table->philos[i]);
 		i++;
 	}
 	i = 0;

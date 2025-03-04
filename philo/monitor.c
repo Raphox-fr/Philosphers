@@ -6,13 +6,11 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:07:48 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/03 12:06:16 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:31:39 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
 
 void	*watch_simulation(void *data)
 {
@@ -29,18 +27,13 @@ void	*watch_simulation(void *data)
 		{
 			pthread_mutex_lock(table->thrd_gbl);
 			if (is_philo_full(table, i) == 1)
-			{
 				count = count + 1;
-			}
 			if (check_all(table, i, count) == '1')
-			{
 				return (NULL);
-			}
 			pthread_mutex_unlock(table->thrd_gbl);
 			i++;
 		}
-		
-			i = 0;
+		i = 0;
 		count = 0;
 	}
 }
@@ -67,8 +60,8 @@ int	is_time_surpassed(t_table *table, int i)
 
 int	is_philo_full(t_table *table, int i)
 {
-	if (table->nbr_limit_meals != -1
-		&& table->philos[i].meal_counter >= table->nbr_limit_meals)
+	if (table->nbr_limit_meals != -2
+		&& table->philos[i].meal_counter >= table->nbr_limit_meals + 1)
 	{
 		table->philos[i].full = 1;
 		return (1);

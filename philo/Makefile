@@ -6,7 +6,7 @@
 #    By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/16 15:01:28 by raphox            #+#    #+#              #
-#    Updated: 2025/03/01 14:40:48 by rafaria          ###   ########.fr        #
+#    Updated: 2025/03/04 16:28:38 by rafaria          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS			=	${SRCS:.c=.o}
 
 CC			=	gcc
 
-# CFLAGS		=	-Werror -fsanitize=thread
+CFLAGS		=	-Werror -fsanitize=thread
 
 all			:	${NAME}
 

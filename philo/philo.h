@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/03 15:12:02 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:38:06 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,9 @@ void					one_philo_table(t_table *table);
 char					check_all(t_table *table, int i, int count);
 
 void					destroy_all(t_table *table, int i);
+
+void					print_trinite(t_philo *philo);
+
+int						dinner_start_2(t_table *table);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:28:46 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/03 16:16:56 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:33:01 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,37 @@ long	ft_atol(char *str)
 void	one_philo_table(t_table *table)
 {
 	table->start_dinner_time = set_timer();
-	pthread_create(&table->philos[0].thread_id, NULL, dinner_simulation,
-		&table->philos[0]);
+	if (pthread_create(&table->philos[0].thread_id, NULL, dinner_simulation,
+			&table->philos[0]) != 0)
+	{
+		return (destroy_all(table, 0));
+	}
 	my_printf(&table->philos[0], "has taken a fork", 0);
 	ft_usleep(table->time_to_die, table);
 	my_printf(&table->philos[0], "is dead", 0);
-	pthread_join(table->philos[0].thread_id, NULL);
-}
-int destroy_forks(t_table *table, int i)
-{
-	while (i >= 0)
+	if (pthread_join(table->philos[0].thread_id, NULL) != 0)
 	{
-		pthread_mutex_destroy(&table->thread_forks[i]);
-		i--;
+		return (destroy_all(table, 0));
 	}
+}
+
+int	destroy_forks(t_table *table, int i)
+{
+	pthread_mutex_destroy(table->thread_forks);
 	return (-1);
 }
 
-// int destroy_all_forks(t_table *table)
-// {
-// 	int i;
-// 	i = table->nbr_limit_meals - 1;
-// 	while (i > 0)
-// 	{
-// 		pthread_mutex_destroy(&table->thread_forks[i]);
-// 		i--;
-// 	}
-// 	return (-1);
-// }
-
-int  init_forks(t_table *table)
+void	print_trinite(t_philo *philo)
 {
-	int i;
+	my_printf(philo, "has taken a fork", 0);
+	my_printf(philo, "has taken a fork", 0);
+	my_printf(philo, "is eating", 0);
+}
+
+int	init_forks(t_table *table)
+{
+	int	i;
+
 	i = 0;
 	while (i < table->nbr_philo)
 	{
