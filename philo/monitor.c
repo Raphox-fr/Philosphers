@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:07:48 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 16:31:39 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 13:00:49 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	*watch_simulation(void *data)
 			pthread_mutex_unlock(table->thrd_gbl);
 			i++;
 		}
+		usleep(500);
 		i = 0;
 		count = 0;
 	}
