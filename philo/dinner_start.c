@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:14:20 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:28:56 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 12:45:03 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	dinner_start(t_table *table)
 		return (0);
 	if (table->nbr_philo == 1)
 		return (one_philo_table(table), 0);
+
 	table->start_dinner_time = set_timer();
 	if (pthread_create(&watch, NULL, &watch_simulation, table) != 0)
 		return (destroy_all(table), -1);

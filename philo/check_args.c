@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:30:40 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:12:28 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 12:46:27 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	check_arguments(int argc, char **argv)
 		printf("Error: not enough or too many arguments\n");
 		return (-1);
 	}
+	
 	while (argv[i] != NULL)
 	{
 		if (contains_a_digit(argv[i]) == 0)

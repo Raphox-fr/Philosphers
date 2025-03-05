@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:12:54 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 12:51:39 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,17 @@ int	init_struct(t_table *table, int argc, char **argv)
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
 	table->time_to_sleep = ft_atol(argv[4]);
-	if (argv[5] != NULL)
+	if (argv[5] != NULL )
+	{
 		table->nbr_limit_meals = ft_atol(argv[5]);
+		if (table->nbr_limit_meals <= 0)
+			return (printf("Number of meals too low\n")   , -1);
+	}
 	else
 		table->nbr_limit_meals = -2;
 	if ((table->time_to_die < 60) || (table->time_to_eat < 60)
 		|| (table->time_to_sleep < 60))
-		return (0);
+		return (printf("Higher values needed\n")   , -1);
 	table->end_simulation = 0;
 	table->one_philo_dead = -1;
 	if (init_table_mutex(table) == -1)
