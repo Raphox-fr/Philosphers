@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:28:46 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:14:42 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 15:00:57 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	one_philo_table(t_table *table)
 	{
 		return (destroy_all(table));
 	}
+	destroy_all(table);
 }
 
 int	destroy_forks(t_table *table)

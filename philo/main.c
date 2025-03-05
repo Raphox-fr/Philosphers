@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:50:02 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:12:13 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 14:56:08 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ int	main(int argc, char **argv)
 {
 	t_table	table;
 
-	if (argc == 0)
-		return (0);
+	if (argc == 1)
+	{
+		printf("Needs arguments\n");
+		return (-1);
+	}
 	if (check_arguments(argc, argv) == -1)
 		return (-1);
 	if (init_struct(&table, argc, argv) == -1)

@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:30:40 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/05 13:08:48 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/05 14:50:58 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	check_arguments(int argc, char **argv)
 	int	i;
 
 	i = 1;
-	if (ft_atol(argv[1]) > 200)
+	if (ft_atol(argv[1]) > 200 || ft_atol(argv[1]) == 0)
 	{
-		printf("Error: too many philos\n");
+		printf("Error: Not enough or too many philos\n");
 		return (-1);
 	}
 	if (argc < 5 || argc > 6)
