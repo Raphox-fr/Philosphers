@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:38:49 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/06 12:59:59 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:26:48 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ int	init_table_mutex(t_table *table)
 	return (0);
 }
 
-int	init_struct(t_table *table, int argc, char **argv)
+int	init_struct(t_table *table, char **argv)
 {
-	if (argc == 0)
-		return (0);
 	table->nbr_philo = ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
@@ -65,6 +63,8 @@ int	init_struct(t_table *table, int argc, char **argv)
 	if (init_table_mutex(table) == -1)
 		return (-1);
 	table->philos = malloc(sizeof(t_philo) * (table->nbr_philo));
+	if (table->philos == NULL)
+		return (-1);
 	init_philos(table);
 	return (0);
 }

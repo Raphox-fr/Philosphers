@@ -6,7 +6,7 @@
 /*   By: rafaria <rafaria@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:20:36 by rafaria           #+#    #+#             */
-/*   Updated: 2025/03/04 17:26:48 by rafaria          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:27:47 by rafaria          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_philo
 
 // MAIN.C
 
-int						init_struct(t_table *table, int argc, char **argv);
+int						init_struct(t_table *table, char **argv);
 int						init_philos(t_table *table);
 long					ft_atol(char *str);
 
